@@ -4,7 +4,7 @@ export interface MenuItem {
     description: string
     price: number
     category: string
-    image: string 
+    image: string| File
   }
   
   export interface InventoryItem {
@@ -30,13 +30,14 @@ export interface MenuItem {
     status: "pending" | "preparing" | "ready"
     timestamp: string
   }
-  export interface MenuItem {
-    id: string
-    name: string
-    description: string
-    price: number // Ensure this is defined as a number
-    category: string
-    image: string 
-  }
+//   export interface MenuItem {
+//     id: string
+//     name: string
+//     description: string
+//     price: number // Ensure this is defined as a number
+//     category: string
+//     image: string
+    
+  
   
   
