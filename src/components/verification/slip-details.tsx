@@ -117,3 +117,5 @@ export function SlipDetails({ transaction, onBack }: SlipDetailsProps) {
   )
 }
 
+
+

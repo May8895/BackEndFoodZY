@@ -480,7 +480,9 @@ export function FloorPlan() {
       <CustomerInputDialog
         open={showCustomerInputDialog}
         onOpenChange={setShowCustomerInputDialog}
-        onSubmit={handleCustomerInput}
+        // onSubmit={handleCustomerInput}
+        onSubmit={(data) => handleCustomerInput({ ...data, totalCost: 0 })}
+
       />
       <AddTableDialog open={showAddTableDialog} onOpenChange={setShowAddTableDialog} onAddTable={handleAddTable} />
     </div>

@@ -61,3 +61,5 @@ export function SlipHistory({ transactions, onSelectTransaction }: SlipHistoryPr
   )
 }
 
+
+

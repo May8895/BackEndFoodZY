@@ -108,3 +108,4 @@ export function SlipDashboard({ transactions }: SlipDashboardProps) {
   )
 }
 
+

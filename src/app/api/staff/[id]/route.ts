@@ -4,7 +4,7 @@ import db from "@/lib/db"
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     const { id } = params
-    const result = await db.query("SELECT * FROM staff WHERE id = $1", [id])
+    const result = await db.query("SELECT * FROM public.staff WHERE id = $1", [id])
 
     if (result.rows.length === 0) {
       return NextResponse.json({ error: "Staff member not found" }, { status: 404 })
@@ -84,7 +84,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     const { id } = params
-    const result = await db.query("DELETE FROM staff WHERE id = $1 RETURNING *", [id])
+    const result = await db.query("DELETE FROM public.staff WHERE id = $1 RETURNING *", [id])
 
     if (result.rows.length === 0) {
       return NextResponse.json({ error: "Staff member not found" }, { status: 404 })
