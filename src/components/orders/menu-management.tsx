@@ -410,7 +410,6 @@ import Image from "next/image"
 // }
 
 
-
 const categories = [
   { id: "all", name: "All", icon: "🍽️" },
   { id: "main", name: "Main Course", icon: "🍖" },
@@ -461,31 +460,32 @@ export function MenuManagement() {
 
   const handleAddItem = async (newItem: Omit<MenuItem, "id">) => {
     try {
-      const formData = new FormData()
+      let imageUrl = newItem.image
 
-      // Handle image upload first if there's a new image
       if (newItem.image instanceof File) {
-        const imageFormData = new FormData()
-        imageFormData.append("file", newItem.image)
+        const formData = new FormData()
+        formData.append("file", newItem.image)
         const filename = `${Date.now()}-${newItem.image.name}`
         const uploadResponse = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
           method: "POST",
-          body: imageFormData,
+          body: formData,
         })
         if (!uploadResponse.ok) throw new Error("Failed to upload image")
         const { url } = await uploadResponse.json()
-        newItem.image = url
+        imageUrl = url
       }
-
-      // Now proceed with adding the menu item
-      Object.entries(newItem).forEach(([key, value]) => {
-        formData.append(key, String(value))
-      })
 
       const response = await fetch("/api/menu", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...newItem,
+          image: imageUrl,
+        }),
       })
+
       if (!response.ok) throw new Error("Failed to add menu item")
       const addedItem = await response.json()
       setMenuItems([...menuItems, addedItem])
@@ -506,31 +506,32 @@ export function MenuManagement() {
 
   const handleEditItem = async (updatedItem: MenuItem) => {
     try {
-      const formData = new FormData()
+      let imageUrl = updatedItem.image
 
-      // Handle image upload first if there's a new image
       if (updatedItem.image instanceof File) {
-        const imageFormData = new FormData()
-        imageFormData.append("file", updatedItem.image)
+        const formData = new FormData()
+        formData.append("file", updatedItem.image)
         const filename = `${Date.now()}-${updatedItem.image.name}`
         const uploadResponse = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
           method: "POST",
-          body: imageFormData,
+          body: formData,
         })
         if (!uploadResponse.ok) throw new Error("Failed to upload image")
         const { url } = await uploadResponse.json()
-        updatedItem.image = url
+        imageUrl = url
       }
-
-      // Now proceed with updating the menu item
-      Object.entries(updatedItem).forEach(([key, value]) => {
-        formData.append(key, String(value))
-      })
 
       const response = await fetch(`/api/menu/${updatedItem.id}`, {
         method: "PUT",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...updatedItem,
+          image: imageUrl,
+        }),
       })
+
       if (!response.ok) throw new Error("Failed to update menu item")
       const editedItem = await response.json()
       setMenuItems(menuItems.map((item) => (item.id === editedItem.id ? editedItem : item)))
@@ -570,8 +571,12 @@ export function MenuManagement() {
 
   const getImageSrc = (image: string | File): string => {
     if (typeof image === "string") {
-      // If it's already a URL, return it
-      if (image.startsWith("http") || image.startsWith("/")) {
+      // If it's a Vercel Blob Storage URL, return it as is
+      if (image.includes("vercel-storage.com")) {
+        return image
+      }
+      // If it's already a full URL, return it
+      if (image.startsWith("http") || image.startsWith("https")) {
         return image
       }
       // If it's a relative path, prepend the base URL
@@ -746,7 +751,7 @@ function AddEditItemDialog({ isOpen, onClose, onSave, item }: AddEditItemDialogP
       description,
       price: Number.parseFloat(price),
       category,
-      image: image instanceof File ? image : item?.image || "",
+      image: image instanceof File ? image : (previewImage as string), // Use previewImage if no new file is selected
     }
     onSave(item ? { ...newItem, id: item.id } : (newItem as MenuItem))
     onClose()
