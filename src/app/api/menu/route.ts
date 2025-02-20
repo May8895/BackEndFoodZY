@@ -225,6 +225,50 @@ import { put } from "@vercel/blob"
 //     return NextResponse.json({ error: "Failed to delete menu item" }, { status: 500 })
 //   }
 // }
+// export async function POST(request: Request) {
+//     try {
+//       const formData = await request.formData()
+//       const name = formData.get("name") as string
+//       const description = formData.get("description") as string
+//       const price = Number.parseFloat(formData.get("price") as string)
+//       const category = formData.get("category") as string
+//       const image = formData.get("image") as File | null
+  
+//       let imageUrl = ""
+//       if (image && image instanceof File) {
+//         const filename = `${Date.now()}-${image.name.replace(/\s+/g, "-")}`
+//         const blob = await put(filename, image, { access: "public" })
+//         imageUrl = blob.url
+//         console.log("Image uploaded to Blob Storage:", imageUrl)
+//       }
+  
+//       const result = await db.query(
+//         `INSERT INTO menu (name, description, price, category, image)
+//          VALUES ($1, $2, $3, $4, $5)
+//          RETURNING *`,
+//         [name, description, price, category, imageUrl],
+//       )
+  
+//       const newItem = result.rows[0]
+//       return NextResponse.json(newItem, { status: 201 })
+//     } catch (error) {
+//       console.error("Error adding new menu item:", error)
+//       return NextResponse.json({ error: "Failed to add new menu item" }, { status: 500 })
+//     }
+//   }
+
+  
+  
+//   export async function GET() {
+//     try {
+//       const result = await db.query("SELECT * FROM menu")
+//       return NextResponse.json(result.rows)
+//     } catch (error) {
+//       console.error("Error fetching menu items:", error)
+//       return NextResponse.json({ error: "Failed to fetch menu items" }, { status: 500 })
+//     }
+//   }
+  
 export async function POST(request: Request) {
     try {
       const formData = await request.formData()
@@ -232,14 +276,25 @@ export async function POST(request: Request) {
       const description = formData.get("description") as string
       const price = Number.parseFloat(formData.get("price") as string)
       const category = formData.get("category") as string
-      const image = formData.get("image") as File | null
+      const image = formData.get("image")
   
-      let imageUrl = ""
-      if (image && image instanceof File) {
-        const filename = `${Date.now()}-${image.name.replace(/\s+/g, "-")}`
-        const blob = await put(filename, image, { access: "public" })
-        imageUrl = blob.url
-        console.log("Image uploaded to Blob Storage:", imageUrl)
+      if (!name || !description || isNaN(price) || !category) {
+        return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+      }
+  
+      let imageUrl: string | null = null
+      if (image instanceof File) {
+        try {
+          const filename = `${Date.now()}-${image.name.replace(/\s+/g, "-")}`
+          const blob = await put(filename, image, { access: "public" })
+          imageUrl = blob.url
+          console.log("Image uploaded to Blob Storage:", imageUrl)
+        } catch (error) {
+          console.error("Error uploading image:", error)
+          return NextResponse.json({ error: "Failed to upload image" }, { status: 500 })
+        }
+      } else if (typeof image === "string") {
+        imageUrl = image
       }
   
       const result = await db.query(
@@ -267,6 +322,5 @@ export async function POST(request: Request) {
     }
   }
   
-
 
 

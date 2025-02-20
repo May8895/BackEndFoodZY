@@ -4,8 +4,15 @@ export interface MenuItem {
     description: string
     price: number
     category: string
-    image: string| File
+    image: string| null 
   }
+  export interface MenuItemInput {
+    name: string
+    description: string
+    price: number
+    category: string
+    image: File | string | null
+  }  
   
   export interface InventoryItem {
     id: string
