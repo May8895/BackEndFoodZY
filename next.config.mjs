@@ -16,11 +16,18 @@ const nextConfig = {
       ignoreDuringBuilds: true, // Disable ESLint errors stopping the build
     },
     images: {
-      domains: ["localhost", "https://back-end-food-zy.vercel.app/", "public.blob.vercel-storage.com"],
       remotePatterns: [
         {
           protocol: "https",
-          hostname: "**",
+          hostname: "*.vercel-storage.com",
+        },
+        {
+          protocol: "https",
+          hostname: "back-end-food-zy.vercel.app",
+        },
+        {
+          protocol: "http",
+          hostname: "localhost",
         },
       ],
     },
