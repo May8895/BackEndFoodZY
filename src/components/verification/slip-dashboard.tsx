@@ -1247,7 +1247,7 @@ export default function SlipDashboard() {
 
   async function fetchOrders() {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`)
+      const res = await fetch(`/api/orders`)
       if (!res.ok) throw new Error("Failed to fetch orders")
       const data = await res.json()
       setOrders(data)
