@@ -301,213 +301,7 @@ const languages = [
   { id: "jp", name: "Japanese" },
 ]
 
-// export function AddStaffForm() {
-//   const [formData, setFormData] = useState({
-//     name: "",
-//     email: "",
-//     phone: "",
-//     position: "",
-//     service_period: "",
-//     status: "active",
-//     education: "",
-//     skills: [],
-//     experience: "",
-//     assigned_section: "",
-//     performance: 100,
-//     error_count: 0,
-//     birth_date: "",
-//     nationality: "",
-//     language: "",
-//     address: "",
-//   })
-//   const [isSubmitting, setIsSubmitting] = useState(false)
-//   const router = useRouter()
-//   const { toast } = useToast()
 
-//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const { name, value } = e.target
-//     setFormData((prev) => ({ ...prev, [name]: value }))
-//   }
-
-//   const handleSelectChange = (name: string) => (value: string) => {
-//     setFormData((prev) => ({ ...prev, [name]: value }))
-//   }
-
-//   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-//     event.preventDefault()
-//     setIsSubmitting(true)
-
-//     try {
-//       const response = await fetch("/api/staff", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(formData),
-//       })
-
-//       if (!response.ok) {
-//         throw new Error("Failed to create staff member")
-//       }
-
-//       toast({
-//         title: "Success",
-//         description: "Staff member added successfully",
-//       })
-//       router.push("/staff")
-//     } catch (error) {
-//       console.error("Error creating staff:", error)
-//       toast({
-//         variant: "destructive",
-//         title: "Error",
-//         description: "Failed to add staff member",
-//       })
-//     } finally {
-//       setIsSubmitting(false)
-//     }
-//   }
-
-//   return (
-//     <form onSubmit={handleSubmit} className="space-y-6">
-//       <div className="grid gap-4">
-//         <div>
-//           <Label htmlFor="name">Full Name</Label>
-//           <Input
-//             id="name"
-//             name="name"
-//             value={formData.name}
-//             onChange={handleInputChange}
-//             placeholder="Enter full name"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="email">Email</Label>
-//           <Input
-//             type="email"
-//             id="email"
-//             name="email"
-//             value={formData.email}
-//             onChange={handleInputChange}
-//             placeholder="Enter email"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="phone">Phone</Label>
-//           <Input
-//             type="tel"
-//             id="phone"
-//             name="phone"
-//             value={formData.phone}
-//             onChange={handleInputChange}
-//             placeholder="Enter phone number"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="position">Position</Label>
-//           <Select name="position" value={formData.position} onValueChange={handleSelectChange("position")}>
-//             <SelectTrigger>
-//               <SelectValue placeholder="Select position" />
-//             </SelectTrigger>
-//             <SelectContent>
-//               {positions.map((position) => (
-//                 <SelectItem key={position.id} value={position.id}>
-//                   {position.name}
-//                 </SelectItem>
-//               ))}
-//             </SelectContent>
-//           </Select>
-//         </div>
-//         <div>
-//           <Label htmlFor="nationality">Nationality</Label>
-//           <Select name="nationality" value={formData.nationality} onValueChange={handleSelectChange("nationality")}>
-//             <SelectTrigger>
-//               <SelectValue placeholder="Select nationality" />
-//             </SelectTrigger>
-//             <SelectContent>
-//               {nationalities.map((nationality) => (
-//                 <SelectItem key={nationality.id} value={nationality.id}>
-//                   {nationality.name}
-//                 </SelectItem>
-//               ))}
-//             </SelectContent>
-//           </Select>
-//         </div>
-//         <div>
-//           <Label htmlFor="language">Primary Language</Label>
-//           <Select name="language" value={formData.language} onValueChange={handleSelectChange("language")}>
-//             <SelectTrigger>
-//               <SelectValue placeholder="Select primary language" />
-//             </SelectTrigger>
-//             <SelectContent>
-//               {languages.map((language) => (
-//                 <SelectItem key={language.id} value={language.id}>
-//                   {language.name}
-//                 </SelectItem>
-//               ))}
-//             </SelectContent>
-//           </Select>
-//         </div>
-//         <div>
-//           <Label htmlFor="birth_date">Birth Date</Label>
-//           <Input
-//             type="date"
-//             id="birth_date"
-//             name="birth_date"
-//             value={formData.birth_date}
-//             onChange={handleInputChange}
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="education">Education</Label>
-//           <Input
-//             id="education"
-//             name="education"
-//             value={formData.education}
-//             onChange={handleInputChange}
-//             placeholder="Enter education"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="experience">Experience</Label>
-//           <Input
-//             id="experience"
-//             name="experience"
-//             value={formData.experience}
-//             onChange={handleInputChange}
-//             placeholder="Enter years of experience"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="address">Address</Label>
-//           <Input
-//             id="address"
-//             name="address"
-//             value={formData.address}
-//             onChange={handleInputChange}
-//             placeholder="Enter address"
-//             required
-//           />
-//         </div>
-//       </div>
-//       <Button type="submit" disabled={isSubmitting} className="w-full">
-//         {isSubmitting ? (
-//           <>
-//             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-//             Submitting...
-//           </>
-//         ) : (
-//           "Submit"
-//         )}
-//       </Button>
-//     </form>
-//   )
-// }
 // export function AddStaffForm() {
 //   const [formData, setFormData] = useState({
 //     name: "",
@@ -529,9 +323,12 @@ const languages = [
 //   })
 //   const [image, setImage] = useState<File | null>(null)
 //   const [imagePreview, setImagePreview] = useState<string | null>(null)
+//   const [isDragging, setIsDragging] = useState(false)
 //   const [isSubmitting, setIsSubmitting] = useState(false)
 //   const router = useRouter()
 //   const { toast } = useToast()
+
+//   const selectedPositionDetails = positions.find((p) => p.id === formData.position)
 
 //   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 //     const { name, value } = e.target
@@ -545,21 +342,49 @@ const languages = [
 //   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
 //     const file = e.target.files?.[0]
 //     if (file) {
-//       if (file.size > 5 * 1024 * 1024) {
-//         // 5MB limit
-//         toast({
-//           variant: "destructive",
-//           title: "Error",
-//           description: "File size should not exceed 5MB",
-//         })
-//         return
-//       }
-//       setImage(file)
-//       const reader = new FileReader()
-//       reader.onloadend = () => {
-//         setImagePreview(reader.result as string)
-//       }
-//       reader.readAsDataURL(file)
+//       handleFile(file)
+//     }
+//   }
+
+//   const handleFile = (file: File) => {
+//     if (file.size > 10 * 1024 * 1024) {
+//       toast({
+//         variant: "destructive",
+//         title: "Error",
+//         description: "File size should not exceed 10MB",
+//       })
+//       return
+//     }
+//     setImage(file)
+//     const reader = new FileReader()
+//     reader.onloadend = () => {
+//       setImagePreview(reader.result as string)
+//     }
+//     reader.readAsDataURL(file)
+//   }
+
+//   const handleDragOver = (e: React.DragEvent) => {
+//     e.preventDefault()
+//     setIsDragging(true)
+//   }
+
+//   const handleDragLeave = (e: React.DragEvent) => {
+//     e.preventDefault()
+//     setIsDragging(false)
+//   }
+
+//   const handleDrop = (e: React.DragEvent) => {
+//     e.preventDefault()
+//     setIsDragging(false)
+//     const file = e.dataTransfer.files[0]
+//     if (file && file.type.startsWith("image/")) {
+//       handleFile(file)
+//     } else {
+//       toast({
+//         variant: "destructive",
+//         title: "Error",
+//         description: "Please upload an image file",
+//       })
 //     }
 //   }
 
@@ -591,7 +416,7 @@ const languages = [
 //         description: "Staff member added successfully",
 //       })
 //       router.push("/staff")
-//     } catch (error) {
+//     } catch (error: unknown) {
 //       console.error("Error creating staff:", error)
 //       let errorMessage = "Failed to add staff member. Please try again."
 //       if (error instanceof Error) {
@@ -608,155 +433,215 @@ const languages = [
 //   }
 
 //   return (
-//     <form onSubmit={handleSubmit} className="space-y-6">
-//       <div className="grid gap-4">
+//     <form onSubmit={handleSubmit} className="space-y-8 max-w-4xl mx-auto">
+//       <div className="flex items-center justify-between">
+//         <h1 className="text-2xl font-bold">Add New Staff</h1>
+//       </div>
+
+//       <div className="space-y-4">
 //         <div>
-//           <Label htmlFor="name">Full Name</Label>
-//           <Input
-//             id="name"
-//             name="name"
-//             value={formData.name}
-//             onChange={handleInputChange}
-//             placeholder="Enter full name"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="email">Email</Label>
-//           <Input
-//             type="email"
-//             id="email"
-//             name="email"
-//             value={formData.email}
-//             onChange={handleInputChange}
-//             placeholder="Enter email"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="phone">Phone</Label>
-//           <Input
-//             type="tel"
-//             id="phone"
-//             name="phone"
-//             value={formData.phone}
-//             onChange={handleInputChange}
-//             placeholder="Enter phone number"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="position">Position</Label>
-//           <Select name="position" value={formData.position} onValueChange={handleSelectChange("position")}>
-//             <SelectTrigger>
-//               <SelectValue placeholder="Select position" />
+//           <Label htmlFor="position">Choose Staff Position:</Label>
+//           <Select value={formData.position} onValueChange={handleSelectChange("position")}>
+//             <SelectTrigger id="position" className="w-full md:w-[300px]">
+//               <SelectValue placeholder="Select a position" />
 //             </SelectTrigger>
 //             <SelectContent>
 //               {positions.map((position) => (
 //                 <SelectItem key={position.id} value={position.id}>
-//                   {position.name}
+//                   <span className="flex items-center gap-2">
+//                     <span>{position.icon}</span>
+//                     <span>{position.title}</span>
+//                   </span>
 //                 </SelectItem>
 //               ))}
 //             </SelectContent>
 //           </Select>
 //         </div>
-//         <div>
-//           <Label htmlFor="nationality">Nationality</Label>
-//           <Select name="nationality" value={formData.nationality} onValueChange={handleSelectChange("nationality")}>
-//             <SelectTrigger>
-//               <SelectValue placeholder="Select nationality" />
-//             </SelectTrigger>
-//             <SelectContent>
-//               {nationalities.map((nationality) => (
-//                 <SelectItem key={nationality.id} value={nationality.id}>
-//                   {nationality.name}
-//                 </SelectItem>
-//               ))}
-//             </SelectContent>
-//           </Select>
-//         </div>
-//         <div>
-//           <Label htmlFor="language">Primary Language</Label>
-//           <Select name="language" value={formData.language} onValueChange={handleSelectChange("language")}>
-//             <SelectTrigger>
-//               <SelectValue placeholder="Select primary language" />
-//             </SelectTrigger>
-//             <SelectContent>
-//               {languages.map((language) => (
-//                 <SelectItem key={language.id} value={language.id}>
-//                   {language.name}
-//                 </SelectItem>
-//               ))}
-//             </SelectContent>
-//           </Select>
-//         </div>
-//         <div>
-//           <Label htmlFor="birth_date">Birth Date</Label>
-//           <Input
-//             type="date"
-//             id="birth_date"
-//             name="birth_date"
-//             value={formData.birth_date}
-//             onChange={handleInputChange}
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="education">Education</Label>
-//           <Input
-//             id="education"
-//             name="education"
-//             value={formData.education}
-//             onChange={handleInputChange}
-//             placeholder="Enter education"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="experience">Experience</Label>
-//           <Input
-//             id="experience"
-//             name="experience"
-//             value={formData.experience}
-//             onChange={handleInputChange}
-//             placeholder="Enter years of experience"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="address">Address</Label>
-//           <Input
-//             id="address"
-//             name="address"
-//             value={formData.address}
-//             onChange={handleInputChange}
-//             placeholder="Enter address"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <Label htmlFor="image">Profile Image (Max 5MB)</Label>
-//           <Input type="file" id="image" name="image" onChange={handleImageChange} accept="image/*" />
-//           {imagePreview && (
-//             <div className="mt-2">
-//               <Image src={imagePreview || "/placeholder.svg"} alt="Profile preview" width={100} height={100} />
+
+//         {selectedPositionDetails && (
+//           <Card>
+//             <CardContent className="pt-6">
+//               <div className="flex items-center gap-2 text-lg font-medium mb-2">
+//                 <span>{selectedPositionDetails.icon}</span>
+//                 <span>{selectedPositionDetails.title}</span>
+//               </div>
+//               <p className="text-sm text-muted-foreground">{selectedPositionDetails.description}</p>
+//             </CardContent>
+//           </Card>
+//         )}
+//       </div>
+
+//       <div>
+//         <h2 className="text-lg font-medium mb-4">Fill out staff information:</h2>
+//         <div className="grid md:grid-cols-2 gap-6">
+//           <div className="space-y-4">
+//             <div>
+//               <Label htmlFor="name">Name/Surname</Label>
+//               <Input
+//                 id="name"
+//                 name="name"
+//                 value={formData.name}
+//                 onChange={handleInputChange}
+//                 placeholder="Enter full name"
+//                 required
+//               />
 //             </div>
-//           )}
+//             <div>
+//               <Label htmlFor="birth_date">Birth Date</Label>
+//               <Input
+//                 type="date"
+//                 id="birth_date"
+//                 name="birth_date"
+//                 value={formData.birth_date}
+//                 onChange={handleInputChange}
+//                 required
+//               />
+//             </div>
+//             <div>
+//               <Label htmlFor="nationality">Nationality</Label>
+//               <Select name="nationality" value={formData.nationality} onValueChange={handleSelectChange("nationality")}>
+//                 <SelectTrigger>
+//                   <SelectValue placeholder="Select nationality" />
+//                 </SelectTrigger>
+//                 <SelectContent>
+//                   {nationalities.map((nationality) => (
+//                     <SelectItem key={nationality.id} value={nationality.id}>
+//                       {nationality.name}
+//                     </SelectItem>
+//                   ))}
+//                 </SelectContent>
+//               </Select>
+//             </div>
+//             <div>
+//               <Label htmlFor="language">Language</Label>
+//               <Select name="language" value={formData.language} onValueChange={handleSelectChange("language")}>
+//                 <SelectTrigger>
+//                   <SelectValue placeholder="Select language" />
+//                 </SelectTrigger>
+//                 <SelectContent>
+//                   {languages.map((language) => (
+//                     <SelectItem key={language.id} value={language.id}>
+//                       {language.name}
+//                     </SelectItem>
+//                   ))}
+//                 </SelectContent>
+//               </Select>
+//             </div>
+//           </div>
+//           <div className="space-y-4">
+//             <div>
+//               <Label htmlFor="education">Education</Label>
+//               <Input
+//                 id="education"
+//                 name="education"
+//                 value={formData.education}
+//                 onChange={handleInputChange}
+//                 placeholder="Enter last education"
+//                 required
+//               />
+//             </div>
+//             <div>
+//               <Label htmlFor="phone">Phone Number</Label>
+//               <Input
+//                 id="phone"
+//                 name="phone"
+//                 type="tel"
+//                 value={formData.phone}
+//                 onChange={handleInputChange}
+//                 placeholder="Enter phone number"
+//                 required
+//               />
+//             </div>
+//             <div>
+//               <Label htmlFor="email">Mail Address</Label>
+//               <Input
+//                 id="email"
+//                 name="email"
+//                 type="email"
+//                 value={formData.email}
+//                 onChange={handleInputChange}
+//                 placeholder="Enter email address"
+//                 required
+//               />
+//             </div>
+//             <div>
+//               <Label htmlFor="address">Address</Label>
+//               <Input
+//                 id="address"
+//                 name="address"
+//                 value={formData.address}
+//                 onChange={handleInputChange}
+//                 placeholder="Enter current address"
+//                 required
+//               />
+//             </div>
+//           </div>
+//           <div className="md:col-span-2">
+//             <Label>Staff Image</Label>
+//             <div
+//               className={`mt-2 flex items-center justify-center border-2 border-dashed rounded-lg p-6 ${
+//                 isDragging ? "border-primary bg-primary/10" : "border-border"
+//               }`}
+//               onDragOver={handleDragOver}
+//               onDragLeave={handleDragLeave}
+//               onDrop={handleDrop}
+//             >
+//               <div className="text-center">
+//                 <Upload className="mx-auto h-12 w-12 text-muted-foreground" />
+//                 <div className="mt-4 flex text-sm leading-6 text-muted-foreground">
+//                   <label
+//                     htmlFor="file-upload"
+//                     className="relative cursor-pointer rounded-md bg-background font-semibold text-primary focus-within:outline-none focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 hover:text-primary/80"
+//                   >
+//                     <span>Upload a file</span>
+//                     <input
+//                       id="file-upload"
+//                       name="image"
+//                       type="file"
+//                       className="sr-only"
+//                       onChange={handleImageChange}
+//                       accept="image/*"
+//                     />
+//                   </label>
+//                   <p className="pl-1">or drag and drop</p>
+//                 </div>
+//                 <p className="text-xs leading-5 text-muted-foreground">PNG, JPG, GIF up to 10MB</p>
+//                 {imagePreview && (
+//                   <div className="mt-4">
+//                     <Image
+//                       src={imagePreview || "/placeholder.svg"}
+//                       alt="Preview"
+//                       width={100}
+//                       height={100}
+//                       className="mx-auto rounded-lg object-cover"
+//                     />
+//                   </div>
+//                 )}
+//               </div>
+//             </div>
+//           </div>
 //         </div>
 //       </div>
-//       <Button type="submit" disabled={isSubmitting} className="w-full">
-//         {isSubmitting ? (
-//           <>
-//             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-//             Submitting...
-//           </>
-//         ) : (
-//           "Submit"
-//         )}
-//       </Button>
+
+//       <div className="flex justify-end gap-4">
+//         <Button type="button" variant="outline" onClick={() => router.push("/staff")} disabled={isSubmitting}>
+//           Back
+//         </Button>
+//         <Button type="submit" className="bg-[#f77700] hover:bg-[#f77700]/90" disabled={isSubmitting}>
+//           {isSubmitting ? (
+//             <>
+//               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+//               Saving...
+//             </>
+//           ) : (
+//             "Save Information"
+//           )}
+//         </Button>
+//       </div>
 //     </form>
 //   )
 // }
+
 export function AddStaffForm() {
   const [formData, setFormData] = useState({
     name: "",
@@ -1096,7 +981,6 @@ export function AddStaffForm() {
     </form>
   )
 }
-
 
 
 

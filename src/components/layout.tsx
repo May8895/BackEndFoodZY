@@ -79,10 +79,10 @@ export function Layout({ children }: LayoutProps) {
           </div>
           <div className="flex flex-1 items-center gap-4 md:gap-6">
             <form className="flex-1 md:flex-initial">
-              <div className="relative">
+              {/* <div className="relative">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
                 <Input type="search" placeholder="Search..." className="pl-8 md:w-[200px] lg:w-[300px]" />
-              </div>
+              </div> */}
             </form>
             <div className="ml-auto flex items-center gap-4">
               <Button variant="ghost" size="icon">

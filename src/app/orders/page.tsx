@@ -41,6 +41,8 @@ import { OrderForm } from "@/src/components/orders/OrderForm"
 import { OrderProcessing } from "@/src/components/orders/order-processing"
 import { MenuManagement } from "@/src/components/orders/menu-management"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/src/components/ui/tabs"
+import {TableOrderSummary} from "@/src/components/orders/TableOrderSummary"
+
 
 export default function Home() {
   const [key, setKey] = useState(0)
@@ -56,11 +58,16 @@ export default function Home() {
       <Tabs defaultValue="order">
         <TabsList>
           <TabsTrigger value="order">Place Order</TabsTrigger>
+          <TabsTrigger value="Summary">Orders Summary</TabsTrigger>
+
           <TabsTrigger value="processing">Order Processing</TabsTrigger>
           <TabsTrigger value="menu">Menu Management</TabsTrigger>
         </TabsList>
         <TabsContent value="order">
           <OrderForm onOrderPlaced={handleOrderPlaced} />
+        </TabsContent>
+        <TabsContent value="Summary">
+          <TableOrderSummary  />
         </TabsContent>
         <TabsContent value="processing">
           <OrderProcessing key={key} />

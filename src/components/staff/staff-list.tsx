@@ -287,6 +287,130 @@ interface StaffMember {
   error_count: number
 }
 
+// export function StaffList() {
+//   const [staffMembers, setStaffMembers] = useState<StaffMember[]>([])
+//   const [expandedStaff, setExpandedStaff] = useState<number | null>(null)
+//   const [searchQuery, setSearchQuery] = useState("")
+//   const [positionFilter, setPositionFilter] = useState("All")
+//   const [isLoading, setIsLoading] = useState(true)
+
+//   useEffect(() => {
+//     async function fetchStaff() {
+//       try {
+//         const response = await fetch("/api/staff")
+//         if (!response.ok) {
+//           throw new Error("Failed to fetch staff")
+//         }
+//         const data = await response.json()
+//         setStaffMembers(data)
+//       } catch (error) {
+//         console.error("Error fetching staff:", error)
+//       } finally {
+//         setIsLoading(false)
+//       }
+//     }
+
+//     fetchStaff()
+//   }, [])
+
+//   const filteredStaff = staffMembers.filter((staff) => {
+//     const matchesSearch =
+//       staff.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+//       staff.email.toLowerCase().includes(searchQuery.toLowerCase())
+//     const matchesPosition = positionFilter === "All" || staff.position === positionFilter
+//     return matchesSearch && matchesPosition
+//   })
+
+//   if (isLoading) {
+//     return (
+//       <div className="flex items-center justify-center h-[50vh]">
+//         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+//       </div>
+//     )
+//   }
+
+//   return (
+//     <motion.div
+//       initial={{ opacity: 0, y: 20 }}
+//       animate={{ opacity: 1, y: 0 }}
+//       transition={{ duration: 0.5 }}
+//       className="flex flex-col gap-6"
+//     >
+//       <div className="flex items-center justify-between">
+//         <h1 className="text-2xl font-bold">Staffs</h1>
+//         <div className="flex items-center gap-4">
+//           <Button variant="ghost" size="icon">
+//             <Bell className="h-5 w-5" />
+//           </Button>
+//           <Link href="/staff/new">
+//             <Button className="bg-[#f77700] hover:bg-[#f77700]/90">
+//               <Plus className="mr-2 h-4 w-4" />
+//               Add New Staff
+//             </Button>
+//           </Link>
+//         </div>
+//       </div>
+
+//       <div className="flex flex-col sm:flex-row gap-4">
+//         <div className="relative flex-1">
+//           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+//           <Input
+//             type="search"
+//             placeholder="Search..."
+//             className="pl-8 w-full"
+//             value={searchQuery}
+//             onChange={(e) => setSearchQuery(e.target.value)}
+//           />
+//         </div>
+//         <Select value={positionFilter} onValueChange={setPositionFilter}>
+//           <SelectTrigger className="w-[180px]">
+//             <SelectValue placeholder="Position: All" />
+//           </SelectTrigger>
+//           <SelectContent>
+//             <SelectItem value="All">All</SelectItem>
+//             <SelectItem value="waiter">Waiter</SelectItem>
+//             <SelectItem value="cashier">Cashier</SelectItem>
+//             <SelectItem value="bartender">Bartender</SelectItem>
+//             <SelectItem value="chef">Chef</SelectItem>
+//           </SelectContent>
+//         </Select>
+//       </div>
+
+//       <motion.div
+//         initial={{ opacity: 0 }}
+//         animate={{ opacity: 1 }}
+//         transition={{ duration: 0.5, delay: 0.2 }}
+//         className="rounded-lg border bg-card"
+//       >
+//         <div className="grid grid-cols-[1fr_1.5fr_1fr_1fr_1fr] gap-4 border-b bg-muted/50 p-4 text-sm font-medium text-muted-foreground">
+//           <div>Name</div>
+//           <div>Contacts</div>
+//           <div>Position</div>
+//           <div>Service Period</div>
+//           <div>Status</div>
+//         </div>
+//         <AnimatePresence>
+//           {filteredStaff.map((staff) => (
+//             <motion.div
+//               key={staff.id}
+//               initial={{ opacity: 0 }}
+//               animate={{ opacity: 1 }}
+//               exit={{ opacity: 0 }}
+//               transition={{ duration: 0.2 }}
+//             >
+//               <StaffCard
+//                 staff={staff}
+//                 isExpanded={expandedStaff === staff.id}
+//                 onToggle={() => setExpandedStaff(expandedStaff === staff.id ? null : staff.id)}
+//               />
+//             </motion.div>
+//           ))}
+//         </AnimatePresence>
+//       </motion.div>
+//     </motion.div>
+//   )
+// }
+
 export function StaffList() {
   const [staffMembers, setStaffMembers] = useState<StaffMember[]>([])
   const [expandedStaff, setExpandedStaff] = useState<number | null>(null)
@@ -337,7 +461,7 @@ export function StaffList() {
       className="flex flex-col gap-6"
     >
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Staffs</h1>
+        <h1 className="text-2xl font-bold">Staff</h1>
         <div className="flex items-center gap-4">
           <Button variant="ghost" size="icon">
             <Bell className="h-5 w-5" />
@@ -402,6 +526,8 @@ export function StaffList() {
                 staff={staff}
                 isExpanded={expandedStaff === staff.id}
                 onToggle={() => setExpandedStaff(expandedStaff === staff.id ? null : staff.id)}
+                onUpdate={() => setExpandedStaff(expandedStaff === staff.id ? null : staff.id)}
+
               />
             </motion.div>
           ))}

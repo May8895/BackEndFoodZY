@@ -21,7 +21,6 @@ export function Table({ table, onClick, onComplete, isRemoveMode, onRemove }: Ta
         table.status === "serving" && "border-green-500 bg-green-50",
         table.status === "reserved" && "border-purple-500 bg-purple-50",
         table.status === "available" && "border-gray-200 bg-gray-50",
-        table.status === "occupied" && "border-blue-500 bg-blue-50",
         isClickable && "cursor-pointer hover:bg-gray-100",
         isRemoveMode && "border-red-500 hover:bg-red-100",
       )}
@@ -38,7 +37,7 @@ export function Table({ table, onClick, onComplete, isRemoveMode, onRemove }: Ta
           <Trash2 className="h-6 w-6" />
         </button>
       )}
-      {(table.status === "ordered" || table.status === "serving" || table.status === "occupied") && (
+      {(table.status === "ordered" || table.status === "serving" ) && (
         <button
           className="absolute top-2 right-2 w-6 h-6 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center text-white"
           onClick={(e) => {
@@ -57,7 +56,6 @@ export function Table({ table, onClick, onComplete, isRemoveMode, onRemove }: Ta
             table.status === "serving" && "text-green-700",
             table.status === "reserved" && "text-purple-700",
             table.status === "available" && "text-gray-700",
-            table.status === "occupied" && "text-blue-700",
           )}
         >
           {table.number}
@@ -66,7 +64,7 @@ export function Table({ table, onClick, onComplete, isRemoveMode, onRemove }: Ta
         {table.status === "reserved" && table.booking && (
           <div className="mt-2 text-xs text-purple-600">{table.booking.bookingTime}</div>
         )}
-        {(table.status === "ordered" || table.status === "serving" || table.status === "occupied") && (
+        {(table.status === "ordered" || table.status === "serving" ) && (
           <>
             <div className="mt-2 flex items-center justify-center text-xs text-gray-600">
               <Users className="mr-1 h-3 w-3" />

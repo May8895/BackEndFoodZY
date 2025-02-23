@@ -27,6 +27,7 @@ export interface MenuItem {
     id: string
     name: string
     quantity: number
+    price: number
     specialInstructions?: string
   }
   
@@ -36,7 +37,46 @@ export interface MenuItem {
     items: OrderItem[]
     status: "pending" | "preparing" | "ready"
     timestamp: string
+    total_price: number
+    
+
   }
+  export interface PaymentSlip {
+    id: string
+    order_id: string
+    amount: number
+    transfer_time: Date
+    status: "pending" | "verified" | "rejected"
+    transaction_id: string
+
+  }
+
+  export interface OrderWithPayment {
+    id: string
+    invoiceNo: string
+    tableNumber: string
+    totalPrice: number
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    items: OrderItem[]
+    paymentSlip?: {
+      id: string
+      amount: number
+      transferTime: Date
+      status: "pending" | "verified" | "rejected"
+      transactionId: string
+    }
+  }
+ 
+  
+  
+ 
+    
+  
+    
+  
+  
 //   export interface MenuItem {
 //     id: string
 //     name: string
