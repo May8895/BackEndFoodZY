@@ -291,6 +291,13 @@ const positions = [
       "Support the head chef in food preparation, cooking , and kitchen operation.",
     icon: "👨‍🍳",
   },
+  {
+    id: "cashier",
+    title: "Cashier",
+    description:
+      "Handles customer transcations, manages cash and card paymanet and ensure accurate billing.",
+    icon: "🧑🏼‍💻",
+  },
 ]
 
 const nationalities = [

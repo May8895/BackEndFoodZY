@@ -321,10 +321,13 @@ export function StaffList() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="All">All Positions</SelectItem>
+              <SelectItem value="supervisor">Supervisor</SelectItem>
+              <SelectItem value="head-chef">Head Chef</SelectItem>
               <SelectItem value="waiter">Waiter</SelectItem>
               <SelectItem value="cashier">Cashier</SelectItem>
               <SelectItem value="bartender">Bartender</SelectItem>
               <SelectItem value="chef">Chef</SelectItem>
+
             </SelectContent>
           </Select>
           <DropdownMenu>
