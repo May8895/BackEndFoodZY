@@ -292,6 +292,11 @@ const nationalities = [
   { id: "uk", name: "British" },
   { id: "cn", name: "Chinese" },
   { id: "jp", name: "Japanese" },
+  { id: "ca", name: "Canadian" },
+  { id: "kr", name: "Korean" },
+
+
+  
 ]
 
 const languages = [
@@ -299,6 +304,8 @@ const languages = [
   { id: "en", name: "English" },
   { id: "cn", name: "Chinese" },
   { id: "jp", name: "Japanese" },
+  { id: "kr", name: "Korean" },
+
 ]
 
 

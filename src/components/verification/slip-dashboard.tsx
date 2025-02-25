@@ -1234,6 +1234,266 @@ function SlipVerificationDialog({
   )
 }
 
+// export default function SlipDashboard() {
+//   const [orders, setOrders] = useState<Order[]>([])
+//   const [loading, setLoading] = useState(true)
+//   const [currentPage, setCurrentPage] = useState(1)
+//   const [ordersPerPage, setOrdersPerPage] = useState(10)
+//   const [searchTerm, setSearchTerm] = useState("")
+
+//   useEffect(() => {
+//     fetchOrders()
+//   }, [])
+
+//   async function fetchOrders() {
+//     try {
+//       const res = await fetch(`/api/orders`)
+//       if (!res.ok) throw new Error("Failed to fetch orders")
+//       const data = await res.json()
+//       setOrders(data)
+//     } catch (error) {
+//       console.error("Error fetching orders:", error)
+//     } finally {
+//       setLoading(false)
+//     }
+//   }
+
+//   // Filter orders based on search term
+//   const filteredOrders = orders.filter((order) => {
+//     const searchTermLower = searchTerm.toLowerCase()
+//     const idString = String(order.id).toLowerCase()
+//     const tableNumberString = String(order.table_number).toLowerCase()
+
+//     return idString.includes(searchTermLower) || tableNumberString.includes(searchTermLower)
+//   })
+
+//   // Calculate pagination
+//   const indexOfLastOrder = currentPage * ordersPerPage
+//   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage
+//   const currentOrders = filteredOrders.slice(indexOfFirstOrder, indexOfLastOrder)
+//   const totalPages = Math.ceil(filteredOrders.length / ordersPerPage)
+
+//   const totalOrders = orders.length
+//   const totalRevenue = orders.reduce((sum, order) => sum + order.total_price, 0)
+//   const pendingPayments = orders.filter((order) => order.payment_status !== "paid").length
+
+//   // Process and sort chart data
+//   const chartData = orders.reduce(
+//     (acc, order) => {
+//       const date = new Date(order.timestamp)
+//       const dateStr = date.toLocaleDateString("en-US", {
+//         weekday: "short",
+//         month: "short",
+//         day: "numeric",
+//       })
+
+//       const existingDay = acc.find((item) => item.name === dateStr)
+//       if (existingDay) {
+//         existingDay.total += order.total_price
+//         existingDay.orders += 1
+//       } else {
+//         acc.push({
+//           name: dateStr,
+//           total: order.total_price,
+//           orders: 1,
+//         })
+//       }
+//       return acc
+//     },
+//     [] as { name: string; total: number; orders: number }[],
+//   )
+
+//   // Sort by date and limit to last 7 days
+//   chartData.sort((a, b) => new Date(a.name).getTime() - new Date(b.name).getTime())
+//   const last7Days = chartData.slice(-7)
+
+//   if (loading) {
+//     return (
+//       <div className="flex items-center justify-center h-screen">
+//         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-orange-500"></div>
+//       </div>
+//     )
+//   }
+
+//   return (
+//     <div className="container mx-auto p-4 bg-gray-50 min-h-screen">
+//       <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Slip Dashboard</h1>
+//       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
+//         <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+//           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+//             <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
+//             <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+//           </CardHeader>
+//           <CardContent>
+//             <div className="text-2xl font-bold">{totalOrders}</div>
+//             <p className="text-xs text-muted-foreground">+{Math.floor(Math.random() * 10)}% from last month</p>
+//           </CardContent>
+//         </Card>
+//         <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+//           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+//             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+//             <DollarSign className="h-4 w-4 text-muted-foreground" />
+//           </CardHeader>
+//           <CardContent>
+//             <div className="text-2xl font-bold">฿{totalRevenue.toFixed(2)}</div>
+//             <p className="text-xs text-muted-foreground">+{Math.floor(Math.random() * 15)}% from last month</p>
+//           </CardContent>
+//         </Card>
+//         <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+//           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+//             <CardTitle className="text-sm font-medium">Pending Payments</CardTitle>
+//             <Clock className="h-4 w-4 text-muted-foreground" />
+//           </CardHeader>
+//           <CardContent>
+//             <div className="text-2xl font-bold">{pendingPayments}</div>
+//             <p className="text-xs text-muted-foreground">
+//               {pendingPayments > 0 ? "Action needed" : "All payments cleared"}
+//             </p>
+//           </CardContent>
+//         </Card>
+//       </div>
+
+//       <Card className="mb-8 bg-white shadow-lg">
+//         <CardHeader>
+//           <CardTitle className="text-xl font-semibold">Orders Overview</CardTitle>
+//           <CardDescription>Daily revenue and order count for the past week</CardDescription>
+//         </CardHeader>
+//         <CardContent>
+//           <div className="h-[400px] w-full">
+//             <ResponsiveContainer width="100%" height="100%">
+//               <BarChart data={last7Days} margin={{ top: 20, right: 30, left: 20, bottom: 20 }} barGap={0}>
+//                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" horizontal={true} vertical={false} />
+//                 <XAxis
+//                   dataKey="name"
+//                   axisLine={false}
+//                   tickLine={false}
+//                   tick={{ fill: "#6B7280", fontSize: 12 }}
+//                   dy={10}
+//                 />
+//                 <YAxis
+//                   yAxisId="left"
+//                   orientation="left"
+//                   tickFormatter={(value) => `฿${value}`}
+//                   axisLine={false}
+//                   tickLine={false}
+//                   tick={{ fill: "#6B7280", fontSize: 12 }}
+//                   dx={-10}
+//                 />
+//                 <YAxis
+//                   yAxisId="right"
+//                   orientation="right"
+//                   axisLine={false}
+//                   tickLine={false}
+//                   tick={{ fill: "#6B7280", fontSize: 12 }}
+//                   dx={10}
+//                 />
+//                 <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(0, 0, 0, 0.04)" }} />
+//                 <Legend content={<CustomLegend />} verticalAlign="bottom" height={36} />
+//                 <Bar yAxisId="left" dataKey="total" name="Revenue" fill="#FF6B00" radius={[4, 4, 0, 0]} />
+//                 <Bar yAxisId="right" dataKey="orders" name="Orders" fill="#FFA366" radius={[4, 4, 0, 0]} />
+//               </BarChart>
+//             </ResponsiveContainer>
+//           </div>
+//         </CardContent>
+//       </Card>
+
+//       <Card className="bg-white shadow-lg mb-8">
+//         <CardHeader>
+//           <CardTitle className="text-xl font-semibold">All Orders</CardTitle>
+//           <CardDescription>Comprehensive list of all transactions</CardDescription>
+//         </CardHeader>
+//         <CardContent>
+//           <div className="flex justify-between items-center mb-4">
+//             <div className="flex items-center space-x-2">
+//               <Search className="text-gray-400" />
+//               <Input
+//                 type="text"
+//                 placeholder="Search by Order ID or Table Number"
+//                 value={searchTerm}
+//                 onChange={(e) => setSearchTerm(e.target.value)}
+//                 className="w-64"
+//               />
+//             </div>
+//             <Select value={ordersPerPage.toString()} onValueChange={(value) => setOrdersPerPage(Number(value))}>
+//               <SelectTrigger className="w-[180px]">
+//                 <SelectValue placeholder="Orders per page" />
+//               </SelectTrigger>
+//               <SelectContent>
+//                 <SelectItem value="10">10 per page</SelectItem>
+//                 <SelectItem value="20">20 per page</SelectItem>
+//                 <SelectItem value="50">50 per page</SelectItem>
+//               </SelectContent>
+//             </Select>
+//           </div>
+//           <Table>
+//             <TableHeader>
+//               <TableRow>
+//                 <TableHead className="w-[100px]">Order ID</TableHead>
+//                 <TableHead>Table Number</TableHead>
+//                 <TableHead>Status</TableHead>
+//                 <TableHead>Payment Status</TableHead>
+//                 <TableHead className="text-right">Total Price</TableHead>
+//                 <TableHead className="text-right">Timestamp</TableHead>
+//                 <TableHead className="w-[100px]"></TableHead>
+//               </TableRow>
+//             </TableHeader>
+//             <TableBody>
+//               {currentOrders.map((order) => (
+//                 <TableRow key={order.id}>
+//                   <TableCell className="font-medium">{order.id}</TableCell>
+//                   <TableCell>{order.table_number}</TableCell>
+//                   <TableCell>{order.status}</TableCell>
+//                   <TableCell>
+//                     <span
+//                       className={`px-2 py-1 rounded-full text-xs font-semibold ${
+//                         order.payment_status === "paid"
+//                           ? "bg-green-100 text-green-800"
+//                           : "bg-yellow-100 text-yellow-800"
+//                       }`}
+//                     >
+//                       {order.payment_status}
+//                     </span>
+//                   </TableCell>
+//                   <TableCell className="text-right">฿{order.total_price.toFixed(2)}</TableCell>
+//                   <TableCell className="text-right">{new Date(order.timestamp).toLocaleString()}</TableCell>
+//                   <TableCell>
+//                     <OrderDetailsDialog order={order} onVerificationComplete={fetchOrders} />
+//                   </TableCell>
+//                 </TableRow>
+//               ))}
+//             </TableBody>
+//           </Table>
+//           <div className="flex items-center justify-between mt-4">
+//             <p className="text-sm text-gray-600">
+//               Showing {indexOfFirstOrder + 1} to {Math.min(indexOfLastOrder, filteredOrders.length)} of{" "}
+//               {filteredOrders.length} orders
+//             </p>
+//             <div className="flex items-center space-x-2">
+//               <Button
+//                 variant="outline"
+//                 size="sm"
+//                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+//                 disabled={currentPage === 1}
+//               >
+//                 <ChevronLeft className="h-4 w-4" />
+//                 Previous
+//               </Button>
+//               <Button
+//                 variant="outline"
+//                 size="sm"
+//                 onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+//                 disabled={currentPage === totalPages}
+//               >
+//                 Next
+//                 <ChevronRight className="h-4 w-4" />
+//               </Button>
+//             </div>
+//           </div>
+//         </CardContent>
+//       </Card>
+//     </div>
+//   )
+// }
 export default function SlipDashboard() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
@@ -1361,7 +1621,7 @@ export default function SlipDashboard() {
         <CardContent>
           <div className="h-[400px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={last7Days} margin={{ top: 20, right: 30, left: 20, bottom: 20 }} barGap={0}>
+              <BarChart data={last7Days} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" horizontal={true} vertical={false} />
                 <XAxis
                   dataKey="name"
@@ -1371,7 +1631,6 @@ export default function SlipDashboard() {
                   dy={10}
                 />
                 <YAxis
-                  yAxisId="left"
                   orientation="left"
                   tickFormatter={(value) => `฿${value}`}
                   axisLine={false}
@@ -1379,18 +1638,12 @@ export default function SlipDashboard() {
                   tick={{ fill: "#6B7280", fontSize: 12 }}
                   dx={-10}
                 />
-                <YAxis
-                  yAxisId="right"
-                  orientation="right"
-                  axisLine={false}
-                  tickLine={false}
-                  tick={{ fill: "#6B7280", fontSize: 12 }}
-                  dx={10}
-                />
                 <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(0, 0, 0, 0.04)" }} />
-                <Legend content={<CustomLegend />} verticalAlign="bottom" height={36} />
-                <Bar yAxisId="left" dataKey="total" name="Revenue" fill="#FF6B00" radius={[4, 4, 0, 0]} />
-                <Bar yAxisId="right" dataKey="orders" name="Orders" fill="#FFA366" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="total" name="Revenue" fill="#FF6B00" radius={[4, 4, 0, 0]}>
+                  {last7Days.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill="#FF6B00" />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>

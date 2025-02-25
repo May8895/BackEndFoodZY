@@ -1481,7 +1481,7 @@ interface MenuItem {
             )}
           </div>
           <footer className="mt-8 text-center text-sm text-[#8B4513]">
-            <p>© 2023 Flavor Haven. All rights reserved.</p>
+            <p>©2025 FoodZy. All rights reserved.</p>
             <div className="mt-2 flex justify-center space-x-4">
               <a href="#" className="hover:text-[#E67E22] transition-colors">
                 <Facebook className="w-5 h-5" />

@@ -205,6 +205,8 @@ export function AddProductDialog({ open, onOpenChange, onProductAdded }: AddProd
                   <SelectItem value="vegetables">Vegetables</SelectItem>
                   <SelectItem value="dairy">Dairy</SelectItem>
                   <SelectItem value="beverages">Beverages</SelectItem>
+                  <SelectItem value="others">Others</SelectItem>
+
                 </SelectContent>
               </Select>
             </div>

@@ -284,7 +284,7 @@ const TableShape = ({ status, number, seats }: { status: TableStatus; number: st
           <p className="text-lg font-serif mb-2">FoodZy</p>
           <p className="text-sm mb-4">Where Every Meal Tells a Story</p>
           <p className="text-sm">For reservations: (555) 123-4567</p>
-          <p className="text-xs mt-4 text-amber-300">© 2023 FoodZy. All rights reserved.</p>
+          <p className="text-xs mt-4 text-amber-300">© 2025 FoodZy. All rights reserved.</p>
         </footer>
   
         <Dialog open={showCustomerInputDialog}>
