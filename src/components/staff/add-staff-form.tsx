@@ -284,6 +284,13 @@ const positions = [
       "Oversees kitchen operations, creates menus, maintains food quality standards, manages kitchen staff, and ensures food safety.",
     icon: "👨‍🍳",
   },
+  {
+    id: "chef",
+    title: "Chef",
+    description:
+      "Support the head chef in food preparation, cooking , and kitchen operation.",
+    icon: "👨‍🍳",
+  },
 ]
 
 const nationalities = [
@@ -294,6 +301,7 @@ const nationalities = [
   { id: "jp", name: "Japanese" },
   { id: "ca", name: "Canadian" },
   { id: "kr", name: "Korean" },
+  { id: "ar", name: "Australian" },
 
 
   

@@ -18,13 +18,9 @@ interface StaffMember {
     email: string
     phone: string
     position: string
-    service_period: string
     status: string
     image_url: string
     education: string
-    skills: string[]
-    experience: string
-    assigned_section: string
     performance: number
     error_count: number
   }
