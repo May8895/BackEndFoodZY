@@ -85,9 +85,9 @@ export function Layout({ children }: LayoutProps) {
               </div> */}
             </form>
             <div className="ml-auto flex items-center gap-4">
-              <Button variant="ghost" size="icon">
+              {/* <Button variant="ghost" size="icon">
                 <Bell className="h-5 w-5" />
-              </Button>
+              </Button> */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
